@@ -15457,7 +15457,7 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".glazing_slider", "glazing_block");
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".glazing_slider", "glazing_block", ".glazing_content", "active");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".decoration_slider", "internal_link");
 });
 
@@ -15529,14 +15529,50 @@ var modals = function modals() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
 var tabs = function tabs(headerSelector, tabsSelector, contentSelector, activeClass) {
   var header = document.querySelector(headerSelector);
-  var tabs = document.querySelectorAll(tabsSelector);
-  var content = document.querySelectorAll(contentSelector);
-  console.log(header);
+  var tabs = document.querySelectorAll(".".concat(tabsSelector));
+  var content = document.querySelectorAll(contentSelector); // console.log(header);
+  // console.log(tabs);
+
+  console.log(content[0]);
+  openTab();
+
+  function openTab() {
+    var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    content[i].style.display = "block";
+    tabs[i].classList.add(activeClass);
+  }
+
+  function closeTabs() {
+    content.forEach(function (e) {
+      e.style.display = "none";
+    });
+    tabs.forEach(function (e) {
+      e.classList.remove(activeClass);
+    });
+  }
+
   header.addEventListener("click", function (event) {
     if (event.target && event.target.classList.contains(tabsSelector)) {
       console.log(event.target);
+      tabs.forEach(function (element, i) {
+        if (element == event.target) {
+          tabs.forEach(function (item) {
+            item.classList.remove(activeClass);
+          });
+          console.log(i);
+          closeTabs();
+          openTab(i);
+        }
+      });
     }
   });
 };
