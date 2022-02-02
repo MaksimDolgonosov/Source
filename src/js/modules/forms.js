@@ -1,10 +1,19 @@
 const forms = () => {
     const form = document.querySelectorAll("form");
-    const input = document.querySelectorAll("input");
+    const inputs = document.querySelectorAll("input");
+    const inputForms = document.querySelectorAll("input[name='user_phone']");
+    inputForms.forEach(number => {
+        number.addEventListener("input", () => {
+            number.value = number.value.replace(/\D/g, "");
+        });
+    });
+
+
+
     const message = {
-        loading: "Идет отправка",
-        success: "Отправлено",
-        failure: "Ошибка"
+        loading: "Идет отправка...",
+        success: "Спасибо, мы скоро с вами свяжемся!",
+        failure: "Упс! что то пошло не так..."
     };
 
     form.forEach(e => {
@@ -12,7 +21,7 @@ const forms = () => {
     });
 
     const postData = async (url, data) => {
-
+        document.querySelector(".status").textContent = message.loading;
         const res = await fetch(url, {
             method: "POST",
             body: data
@@ -20,25 +29,34 @@ const forms = () => {
         return await res.text();
     };
 
+    function clearInputs() {
+        inputs.forEach(e => {
+            e.value = "";
+        });
+    }
+
 
     function bindPostData(form) {
         form.addEventListener("submit", element => {
             element.preventDefault();
-            let statusMessage = document.createElement("div");
+            const statusMessage = document.createElement("div");
             statusMessage.classList.add("status");
-            statusMessage.textContent = message.loading;
+            //statusMessage.textContent = message.loading;
             form.append(statusMessage); //appendChild-?
             const formData = new FormData(form);
-            postData("http://localhost/Source/src/", formData)
+            postData("assets/server.php", formData)
                 .then(data => {
                     console.log(data);
-                    document.querySelector(".status").textContent = message.success;
-                    statusMessage.remove();
+                    statusMessage.textContent = message.success;
                 }).catch(() => {
-                    document.querySelector(".status").textContent = message.failure;
+                    statusMessage.textContent = message.failure;
                     console.log("Fail");
                 }).finally(() => {
                     form.reset();
+                    // clearInputs();
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 5000);
                 });
 
 
