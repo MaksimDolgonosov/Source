@@ -3,9 +3,7 @@ const tabs = (headerSelector, tabsSelector, contentSelector, activeClass) => {
     const tabs = document.querySelectorAll(`.${tabsSelector}`);
     const content = document.querySelectorAll(contentSelector);
 
-    // console.log(header);
-    // console.log(tabs);
-    console.log(content[0]);
+
 
     openTab();
 
@@ -24,14 +22,11 @@ const tabs = (headerSelector, tabsSelector, contentSelector, activeClass) => {
     }
 
     header.addEventListener("click", event => {
-        if (event.target && event.target.classList.contains(tabsSelector)) {
-            console.log(event.target);
+        if (event.target &&
+            (event.target.classList.contains(tabsSelector) ||
+                event.target.parentNode.classList.contains(tabsSelector))) {
             tabs.forEach((element, i) => {
-                if (element == event.target) {
-                    tabs.forEach(item => {
-                        item.classList.remove(activeClass);
-                    });
-                    console.log(i);
+                if (element == event.target || element == event.target.parentNode) {
                     closeTabs();
                     openTab(i);
                 }
