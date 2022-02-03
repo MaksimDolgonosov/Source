@@ -17894,7 +17894,9 @@ var changeModalState = function changeModalState(state) {
   function bindActionToElems(event, elem, prop) {
     elem.forEach(function (item, i) {
       item.addEventListener(event, function () {
-        if (elem.lenght > 1) {
+        console.log(item.nodeName);
+
+        if (elem.length > 1) {
           state[prop] = i;
         } else {
           state[prop] = item.value;
