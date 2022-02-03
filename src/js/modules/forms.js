@@ -1,13 +1,10 @@
+import checkNumInputs from "./checkNumInputs";
 const forms = () => {
     const form = document.querySelectorAll("form");
     const inputs = document.querySelectorAll("input");
-    const inputForms = document.querySelectorAll("input[name='user_phone']");
-    inputForms.forEach(number => {
-        number.addEventListener("input", () => {
-            number.value = number.value.replace(/\D/g, "");
-        });
-    });
+    // const inputForms = document.querySelectorAll("input[name='user_phone']");
 
+    checkNumInputs("input[name='user_phone']");
 
 
     const message = {
