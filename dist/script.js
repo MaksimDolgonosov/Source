@@ -17853,13 +17853,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener("DOMContentLoaded", function () {
-  var form = {};
+  var form = {
+    form: 0,
+    width: '0',
+    height: '0',
+    type: 'tree',
+    profile: ''
+  };
   Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(form);
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".glazing_slider", "glazing_block", ".glazing_content", "active");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".decoration_slider", "no_click", ".decoration_content > div > div", "after_click");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".balcon_icons", "balcon_icons_img", ".popup_calc_content .big_img > img", "do_image_more", "inline-block");
-  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(form);
 });
 
 /***/ }),
@@ -17894,36 +17900,48 @@ var changeModalState = function changeModalState(state) {
   function bindActionToElems(event, elem, prop) {
     elem.forEach(function (item, i) {
       item.addEventListener(event, function () {
-        // switch (item.nodeName) {
-        //     case "SPAN":
-        //         console.log("span");
-        //         break;
-        //     case "INPUT":
-        //         console.log("input");
-        //         break;
-        //     case "SELECT":
-        //         console.log("select");
-        //         break;
-        // }
-        // console.log(item.nodeName);
-        if (elem.length > 1) {
-          if (item.classList.contains("checkbox")) {
-            elem.forEach(function (box, j) {
-              box.checked = false;
-
-              if (i == j) {
-                box.checked = true;
-              }
-            });
-            i === 0 ? state[prop] = "холодное" : state[prop] = "теплое";
-          } else {
+        switch (item.nodeName) {
+          case "SPAN":
             state[prop] = i;
-          }
-        } else {
-          state[prop] = item.value;
+            break;
+
+          case "INPUT":
+            if (item.getAttribute("type") == "checkbox") {
+              elem.forEach(function (box, j) {
+                box.checked = false;
+
+                if (i == j) {
+                  box.checked = true;
+                }
+              });
+              i === 0 ? state[prop] = "Холодное" : state[prop] = "Тёплое";
+            } else {
+              state[prop] = item.value;
+            }
+
+            break;
+
+          case "SELECT":
+            state[prop] = item.value;
+            break;
         }
 
-        console.log(state);
+        console.log(state); // if (elem.length > 1) {
+        //     if (item.classList.contains("checkbox")) {
+        //         elem.forEach((box, j) => {
+        //             box.checked = false;
+        //             if (i == j) {
+        //                 box.checked = true;
+        //             }
+        //         });
+        //         i === 0 ? state[prop] = "холодное" : state[prop] = "теплое";
+        //     } else {
+        //         state[prop] = i;
+        //     }
+        // } else {
+        //     state[prop] = item.value;
+        // }
+        // console.log(state);
       });
     });
   }
@@ -18004,7 +18022,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var forms = function forms() {
+var forms = function forms(state) {
   var form = document.querySelectorAll("form");
   var inputs = document.querySelectorAll("input"); // const inputForms = document.querySelectorAll("input[name='user_phone']");
 
@@ -18062,6 +18080,13 @@ var forms = function forms() {
       form.append(statusMessage); //appendChild-?
 
       var formData = new FormData(form);
+
+      if (form.getAttribute("data-form") === "end") {
+        for (var key in state) {
+          formData.append(key, state[key]);
+        }
+      }
+
       postData("assets/server.php", formData).then(function (data) {
         console.log(data);
         statusMessage.textContent = message.success;
@@ -18073,7 +18098,23 @@ var forms = function forms() {
 
         setTimeout(function () {
           statusMessage.remove();
-        }, 5000);
+        }, 3000);
+
+        if (form.getAttribute("data-form") === "end") {
+          setTimeout(function () {
+            document.querySelectorAll("[data-modal]").forEach(function (modal) {
+              modal.style.display = "none";
+              document.body.style.overflow = "";
+              state = {
+                form: 0,
+                width: '0',
+                height: '0',
+                type: 'tree',
+                profile: ''
+              };
+            });
+          }, 4000);
+        }
       });
     });
   }

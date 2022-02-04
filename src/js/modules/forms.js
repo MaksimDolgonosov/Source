@@ -1,5 +1,5 @@
 import checkNumInputs from "./checkNumInputs";
-const forms = () => {
+const forms = (state) => {
     const form = document.querySelectorAll("form");
     const inputs = document.querySelectorAll("input");
     // const inputForms = document.querySelectorAll("input[name='user_phone']");
@@ -41,6 +41,15 @@ const forms = () => {
             //statusMessage.textContent = message.loading;
             form.append(statusMessage); //appendChild-?
             const formData = new FormData(form);
+            if (form.getAttribute("data-form") === "end") {
+                for (let key in state) {
+                    formData.append(key, state[key]);
+                }
+
+            }
+
+
+
             postData("assets/server.php", formData)
                 .then(data => {
                     console.log(data);
@@ -53,7 +62,19 @@ const forms = () => {
                     // clearInputs();
                     setTimeout(() => {
                         statusMessage.remove();
-                    }, 5000);
+                    }, 3000);
+                    if (form.getAttribute("data-form") === "end") {
+                        setTimeout(() => {
+                            document.querySelectorAll("[data-modal]").forEach(modal => {
+                                modal.style.display = "none";
+                                document.body.style.overflow = "";
+                                state = { form: 0, width: '0', height: '0', type: 'tree', profile: '' };
+                            });
+                        }, 4000);
+
+
+
+                    }
                 });
 
 
