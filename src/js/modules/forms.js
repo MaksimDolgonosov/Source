@@ -59,7 +59,7 @@ const forms = (state) => {
                     console.log("Fail");
                 }).finally(() => {
                     form.reset();
-                    // clearInputs();
+                    clearInputs();
                     setTimeout(() => {
                         statusMessage.remove();
                     }, 3000);

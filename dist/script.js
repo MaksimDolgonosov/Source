@@ -18093,8 +18093,8 @@ var forms = function forms(state) {
         statusMessage.textContent = message.failure;
         console.log("Fail");
       }).finally(function () {
-        form.reset(); // clearInputs();
-
+        form.reset();
+        clearInputs();
         setTimeout(function () {
           statusMessage.remove();
         }, 3000);
@@ -18155,11 +18155,9 @@ var modals = function modals(state) {
 
         switch (triggerSelector) {
           case ".popup_calc_button":
-            console.log(".popup_calc_button");
-            console.log(state.width);
-
-            if (state.width == false || state.height == false) {
+            if (state.width == false) {
               document.querySelector("#width").style.border = "1px solid red";
+            } else if (state.height == false) {
               document.querySelector("#height").style.border = "1px solid red";
             } else {
               allModals.forEach(function (modal) {
@@ -18170,12 +18168,30 @@ var modals = function modals(state) {
             }
 
             break;
-        } // allModals.forEach(modal => {
-        //     modal.style.display = "none";
-        // });
-        // modal.style.display = "block";
-        // document.body.style.overflow = "hidden";
-        // if (triggerSelector==".popup_calc_button"){
+
+          case ".popup_calc_profile_button":
+            if (document.querySelectorAll(".checkbox")[0].checked == false && document.querySelectorAll(".checkbox")[1].checked == false) {
+              document.querySelectorAll(".checkbox").forEach(function (e) {
+                e.nextElementSibling.style.border = "1px solid red";
+              });
+            } else {
+              allModals.forEach(function (modal) {
+                modal.style.display = "none";
+              });
+              modal.style.display = "block";
+              document.body.style.overflow = "hidden";
+            }
+
+            break;
+
+          default:
+            allModals.forEach(function (modal) {
+              modal.style.display = "none";
+            });
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+            break;
+        } // if (triggerSelector==".popup_calc_button"){
         //     if (state.width==false|| state.height==false){
         //         const statusMessage = document.createElement("div");
         //         statusMessage.classList.add("status");

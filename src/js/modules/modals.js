@@ -20,11 +20,25 @@ const modals = (state) => {
                 }
                 switch (triggerSelector) {
                     case ".popup_calc_button":
-                        console.log(".popup_calc_button");
-                        console.log(state.width);
-                        if (state.width == false || state.height == false) {
+                        if (state.width == false) {
                             document.querySelector("#width").style.border = "1px solid red";
+                        } else if (state.height == false) {
                             document.querySelector("#height").style.border = "1px solid red";
+                        }
+                        else {
+                            allModals.forEach(modal => {
+                                modal.style.display = "none";
+                            });
+                            modal.style.display = "block";
+                            document.body.style.overflow = "hidden";
+                        }
+                        break;
+                    case ".popup_calc_profile_button":
+                        if (document.querySelectorAll(".checkbox")[0].checked == false && document.querySelectorAll(".checkbox")[1].checked == false) {
+                            document.querySelectorAll(".checkbox").forEach(e => {
+                                e.nextElementSibling.style.border = "1px solid red";
+                            });
+
                         } else {
                             allModals.forEach(modal => {
                                 modal.style.display = "none";
@@ -35,14 +49,17 @@ const modals = (state) => {
                         break;
 
 
+                    default:
+                        allModals.forEach(modal => {
+                            modal.style.display = "none";
+                        });
+                        modal.style.display = "block";
+                        document.body.style.overflow = "hidden";
+                        break;
 
                 }
-                // allModals.forEach(modal => {
-                //     modal.style.display = "none";
-                // });
-                // modal.style.display = "block";
-                // document.body.style.overflow = "hidden";
-                
+
+
                 // if (triggerSelector==".popup_calc_button"){
                 //     if (state.width==false|| state.height==false){
                 //         const statusMessage = document.createElement("div");
