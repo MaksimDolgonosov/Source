@@ -64,11 +64,14 @@ const forms = (state) => {
                         statusMessage.remove();
                     }, 3000);
                     if (form.getAttribute("data-form") === "end") {
+                        state = {};
+
+                        console.log(state);
                         setTimeout(() => {
                             document.querySelectorAll("[data-modal]").forEach(modal => {
                                 modal.style.display = "none";
                                 document.body.style.overflow = "";
-                                state = { form: 0, width: '0', height: '0', type: 'tree', profile: '' };
+                                form.reset();
                             });
                         }, 4000);
 

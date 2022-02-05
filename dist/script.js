@@ -17855,13 +17855,12 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener("DOMContentLoaded", function () {
   var form = {
     form: 0,
-    width: '0',
-    height: '0',
-    type: 'tree',
-    profile: ''
+    width: "0",
+    height: "0",
+    type: 'tree'
   };
   Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(form);
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])(form);
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".glazing_slider", "glazing_block", ".glazing_content", "active");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".decoration_slider", "no_click", ".decoration_content > div > div", "after_click");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".balcon_icons", "balcon_icons_img", ".popup_calc_content .big_img > img", "do_image_more", "inline-block");
@@ -18101,17 +18100,13 @@ var forms = function forms(state) {
         }, 3000);
 
         if (form.getAttribute("data-form") === "end") {
+          state = {};
+          console.log(state);
           setTimeout(function () {
             document.querySelectorAll("[data-modal]").forEach(function (modal) {
               modal.style.display = "none";
               document.body.style.overflow = "";
-              state = {
-                form: 0,
-                width: '0',
-                height: '0',
-                type: 'tree',
-                profile: ''
-              };
+              form.reset();
             });
           }, 4000);
         }
@@ -18142,7 +18137,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var modals = function modals() {
+var modals = function modals(state) {
   function bindModals(triggerSelector, modalSelector, closeSelector) {
     var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
     var trigger = document.querySelectorAll(triggerSelector);
@@ -18154,14 +18149,45 @@ var modals = function modals() {
     });
     trigger.forEach(function (e) {
       e.addEventListener("click", function (e) {
-        //     if (e.target) {
-        e.preventDefault(); // }
+        if (e.target) {
+          e.preventDefault();
+        }
 
-        allModals.forEach(function (modal) {
-          modal.style.display = "none";
-        });
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
+        switch (triggerSelector) {
+          case ".popup_calc_button":
+            console.log(".popup_calc_button");
+            console.log(state.width);
+
+            if (state.width == false || state.height == false) {
+              document.querySelector("#width").style.border = "1px solid red";
+              document.querySelector("#height").style.border = "1px solid red";
+            } else {
+              allModals.forEach(function (modal) {
+                modal.style.display = "none";
+              });
+              modal.style.display = "block";
+              document.body.style.overflow = "hidden";
+            }
+
+            break;
+        } // allModals.forEach(modal => {
+        //     modal.style.display = "none";
+        // });
+        // modal.style.display = "block";
+        // document.body.style.overflow = "hidden";
+        // if (triggerSelector==".popup_calc_button"){
+        //     if (state.width==false|| state.height==false){
+        //         const statusMessage = document.createElement("div");
+        //         statusMessage.classList.add("status");
+        //         statusMessage.textContent = "Заполните данные";
+        //     }
+        // }
+        // allModals.forEach(modal => {
+        //     modal.style.display = "none";
+        // });
+        // modal.style.display = "block";
+        // document.body.style.overflow = "hidden";
+
       });
     });
     modal.addEventListener("click", function (e) {
