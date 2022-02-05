@@ -65,8 +65,6 @@ const forms = (state) => {
                     }, 3000);
                     if (form.getAttribute("data-form") === "end") {
                         state = {};
-
-                        console.log(state);
                         setTimeout(() => {
                             document.querySelectorAll("[data-modal]").forEach(modal => {
                                 modal.style.display = "none";
