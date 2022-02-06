@@ -17897,7 +17897,7 @@ window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".decoration_slider", "no_click", ".decoration_content > div > div", "after_click");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".balcon_icons", "balcon_icons_img", ".popup_calc_content .big_img > img", "do_image_more", "inline-block");
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(form);
-  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])("2022-02-07", "Успей сэкономить на остеклении! Только до 7 февраля!");
+  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])("2022-02-08", "Успей сэкономить на остеклении! Только до 8 февраля!");
   Object(_modules_images__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 
