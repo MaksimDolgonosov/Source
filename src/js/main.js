@@ -5,7 +5,7 @@ import tabs from "./modules/tabs";
 import forms from "./modules/forms";
 import changeModalState from "./modules/changeModalState";
 import timer from "./modules/timer";
-
+import images from "./modules/images";
 window.addEventListener("DOMContentLoaded", () => {
 
     const form = { form: 0, width: "0", height: "0", type: 'tree' };
@@ -17,4 +17,5 @@ window.addEventListener("DOMContentLoaded", () => {
     tabs(".balcon_icons", "balcon_icons_img", ".popup_calc_content .big_img > img", "do_image_more", "inline-block");
     forms(form);
     timer(`2022-02-07`, "Успей сэкономить на остеклении! Только до 7 февраля!");
+    images();
 });
