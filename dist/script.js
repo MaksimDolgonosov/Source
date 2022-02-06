@@ -17895,7 +17895,7 @@ window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".decoration_slider", "no_click", ".decoration_content > div > div", "after_click");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])(".balcon_icons", "balcon_icons_img", ".popup_calc_content .big_img > img", "do_image_more", "inline-block");
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(form);
-  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])("2022-02-08");
+  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])("2022-02-07", "Успей сэкономить на остеклении! Только до 7 февраля!");
 });
 
 /***/ }),
@@ -18339,12 +18339,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_date_to_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var timer = function timer(endtime) {
-  //let endtime = "2022-03-07";
+var timer = function timer(endtime, text) {
+  document.querySelector(".sale_subtitle").textContent = text;
+
   function getTimeRemaining(endtime) {
     var t = Date.parse(endtime) - Date.parse(new Date());
     var days = Math.floor(t / (1000 * 60 * 60 * 24));
-    var hours = Math.floor(t / (1000 * 60 * 60) % 24);
+    var hours = Math.floor(t / (1000 * 60 * 60) % 24) - 3;
     var minutes = Math.floor(t / (1000 * 60) % 60);
     var seconds = Math.floor(t / 1000 % 60);
     return {
@@ -18357,7 +18358,7 @@ var timer = function timer(endtime) {
   }
 
   function setClock(endtime) {
-    var timer = document.querySelector(".numbers1");
+    var timer = document.querySelector(".container1");
     var days = timer.querySelector("#days");
     var hours = timer.querySelector("#hours");
     var minutes = timer.querySelector("#minutes");
@@ -18367,16 +18368,18 @@ var timer = function timer(endtime) {
 
     function updateClock() {
       var t = getTimeRemaining(endtime);
-      days.textContent = t.days;
-      hours.textContent = t.hours;
-      minutes.textContent = t.minutes;
-      seconds.textContent = t.seconds; // if (t.total <= 0) {
-      //     clearInterval(timeInterval);
-      //     days.textContent = "00";
-      //     hours.textContent = "00";
-      //     minutes.textContent = "00";
-      //     seconds.textContent = "00";
-      // }
+      days.textContent = getZero(t.days);
+      hours.textContent = getZero(t.hours);
+      minutes.textContent = getZero(t.minutes);
+      seconds.textContent = getZero(t.seconds);
+
+      if (t.total <= 0) {
+        clearInterval(timeInterval);
+        days.textContent = "00";
+        hours.textContent = "00";
+        minutes.textContent = "00";
+        seconds.textContent = "00";
+      }
     }
   }
 

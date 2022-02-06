@@ -16,5 +16,5 @@ window.addEventListener("DOMContentLoaded", () => {
     tabs(".decoration_slider", "no_click", ".decoration_content > div > div", "after_click");
     tabs(".balcon_icons", "balcon_icons_img", ".popup_calc_content .big_img > img", "do_image_more", "inline-block");
     forms(form);
-    timer(`2022-02-08`);
+    timer(`2022-02-07`, "Успей сэкономить на остеклении! Только до 7 февраля!");
 });
